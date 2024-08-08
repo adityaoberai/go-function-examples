@@ -1,0 +1,19 @@
+{
+    "projectId": "668fae4d726fee988ff6",
+    "functions": [
+        {
+            "$id": "go-hello-world",
+            "name": "Go Hello World",
+            "runtime": "go-1.22",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "main.go",
+            "commands": "",
+            "path": "functions/go-hello-world"
+        }
+    ]
+}
