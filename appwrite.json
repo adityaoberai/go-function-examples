@@ -5,7 +5,9 @@
             "$id": "go-gpt",
             "name": "Go GPT",
             "runtime": "go-1.22",
-            "execute": ["any"],
+            "execute": [
+                "any"
+            ],
             "events": [],
             "schedule": "",
             "timeout": 15,
@@ -14,6 +16,22 @@
             "entrypoint": "main.go",
             "commands": "",
             "path": "functions/go-gpt"
+        },
+        {
+            "$id": "go-resume",
+            "name": "Go Resume",
+            "runtime": "go-1.22",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "main.go",
+            "commands": "",
+            "path": "functions/go-resume"
         }
     ]
 }
