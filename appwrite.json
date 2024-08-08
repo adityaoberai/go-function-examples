@@ -5,7 +5,7 @@
             "$id": "go-gpt",
             "name": "Go GPT",
             "runtime": "go-1.22",
-            "execute": [],
+            "execute": ["any"],
             "events": [],
             "schedule": "",
             "timeout": 15,

@@ -19,7 +19,7 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 	openAiClient := openai.NewClient(openAiKey)
 
 	if Context.Req.Method == "GET" {
-		return Context.Res.Text("Hello, World!", Context.Res.WithStatusCode(200), nil)
+		return Context.Res.Text("Hello, World!", Context.Res.WithStatusCode(200))
 	}
 
 	if Context.Req.Method == "POST" {
@@ -32,7 +32,7 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 			return Context.Res.Json(map[string]interface{}{
 				"ok":    false,
 				"error": "Missing request body",
-			}, Context.Res.WithStatusCode(400), nil)
+			}, Context.Res.WithStatusCode(400))
 		}
 
 		prompt := requestBody.Prompt
@@ -55,17 +55,17 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 			return Context.Res.Json(map[string]interface{}{
 				"ok":    false,
 				"error": err,
-			}, Context.Res.WithStatusCode(500), nil)
+			}, Context.Res.WithStatusCode(500))
 		}
 
 		return Context.Res.Json(map[string]interface{}{
 			"ok":       true,
 			"response": completion.Choices[0].Message.Content,
-		}, Context.Res.WithStatusCode(200), nil)
+		}, Context.Res.WithStatusCode(200))
 	}
 
 	return Context.Res.Json(map[string]interface{}{
 		"ok":    false,
 		"error": "Bad request",
-	}, Context.Res.WithStatusCode(400), nil)
+	}, Context.Res.WithStatusCode(400))
 }
