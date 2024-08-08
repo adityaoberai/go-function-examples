@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	"github.com/open-runtimes/types-for-go/v4"
+	"github.com/open-runtimes/types-for-go/v4/openruntimes"
 	openai "github.com/sashabaranov/go-openai"
 )
 
@@ -12,20 +12,30 @@ type RequestBody struct {
 	Prompt string `json:"prompt"`
 }
 
-func Main(Context *types.Context) types.ResponseOutput {
-
+// This Appwrite function will be executed every time your function is triggered
+func Main(Context openruntimes.Context) openruntimes.Response {
 	openAiKey := os.Getenv("OPENAI_KEY")
 
 	openAiClient := openai.NewClient(openAiKey)
 
 	if Context.Req.Method == "GET" {
-		return Context.Res.Text("Hello, World!", 200, nil)
+		return Context.Res.Text("Hello, World!", Context.Res.WithStatusCode(200), nil)
 	}
 
 	if Context.Req.Method == "POST" {
-		requestBody := Context.Req.BodyJson()
+		var requestBody RequestBody
+		err := Context.Req.BodyJson(&requestBody)
 
-		prompt := requestBody["prompt"].(string)
+		if err != nil {
+			Context.Error(err)
+			Context.Res.WithStatusCode(400)
+			return Context.Res.Json(map[string]interface{}{
+				"ok":    false,
+				"error": "Missing request body",
+			}, Context.Res.WithStatusCode(400), nil)
+		}
+
+		prompt := requestBody.Prompt
 
 		completion, err := openAiClient.CreateChatCompletion(
 			context.Background(),
@@ -45,20 +55,17 @@ func Main(Context *types.Context) types.ResponseOutput {
 			return Context.Res.Json(map[string]interface{}{
 				"ok":    false,
 				"error": err,
-			}, 500, nil)
+			}, Context.Res.WithStatusCode(500), nil)
 		}
 
 		return Context.Res.Json(map[string]interface{}{
 			"ok":       true,
 			"response": completion.Choices[0].Message.Content,
-		}, 200, nil)
+		}, Context.Res.WithStatusCode(200), nil)
 	}
 
-	// `Res.Json()` is a handy helper for sending JSON
 	return Context.Res.Json(map[string]interface{}{
-		"motto":       "Build like a team of hundreds_",
-		"learn":       "https://appwrite.io/docs",
-		"connect":     "https://appwrite.io/discord",
-		"getInspired": "https://builtwith.appwrite.io",
-	}, 200, nil)
+		"ok":    false,
+		"error": "Bad request",
+	}, Context.Res.WithStatusCode(400), nil)
 }

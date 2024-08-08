@@ -2,8 +2,8 @@
     "projectId": "668fae4d726fee988ff6",
     "functions": [
         {
-            "$id": "go-hello-world",
-            "name": "Go Hello World",
+            "$id": "go-gpt",
+            "name": "Go GPT",
             "runtime": "go-1.22",
             "execute": [],
             "events": [],
@@ -13,7 +13,7 @@
             "logging": true,
             "entrypoint": "main.go",
             "commands": "",
-            "path": "functions/go-hello-world"
+            "path": "functions/go-gpt"
         }
     ]
 }
