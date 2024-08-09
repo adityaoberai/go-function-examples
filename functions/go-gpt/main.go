@@ -28,7 +28,6 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 
 		if err != nil {
 			Context.Error(err)
-			Context.Res.WithStatusCode(400)
 			return Context.Res.Json(map[string]interface{}{
 				"ok":    false,
 				"error": "Missing request body",
