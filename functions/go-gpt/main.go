@@ -19,7 +19,7 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 	openAiClient := openai.NewClient(openAiKey)
 
 	if Context.Req.Method == "GET" {
-		return Context.Res.Text("Hello, World!", Context.Res.WithStatusCode(200))
+		return Context.Res.Text("Send a POST request to this endpoint with a prompt and get a response.", Context.Res.WithStatusCode(200))
 	}
 
 	if Context.Req.Method == "POST" {
