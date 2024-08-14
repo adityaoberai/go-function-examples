@@ -21,7 +21,7 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 	client := appwrite.NewClient(
 		appwrite.WithEndpoint(os.Getenv("APPWRITE_FUNCTION_API_ENDPOINT")),
 		appwrite.WithProject(os.Getenv("APPWRITE_FUNCTION_PROJECT_ID")),
-		appwrite.WithKey(os.Getenv("APPWRITE_API_KEY")),
+		appwrite.WithKey(Context.Req.Headers["x-appwrite-key"]),
 	)
 
 	databases := appwrite.NewDatabases(client)
