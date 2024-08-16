@@ -8,6 +8,19 @@ Share your resume as an HTML webpage.
 
 - Returns an HTML webpage that renders in your browser
 
+**Response**
+
+Sample `200` Response:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+.
+.
+.
+</html>
+```
+
 ### GET, POST, PUT, PATCH, DELETE /
 
 - Returns a "Bad request" text message

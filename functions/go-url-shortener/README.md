@@ -51,18 +51,20 @@ Returns the short URL and the original URL.
 
 ```json
 {
-  "short": "https://short.app/s/discord"
+  "ok": true,
+  "shortId": "appwrite",
+  "longUrl": "https://appwrite.io"
 }
 ```
 
 Sample `400` Response:
 
-When the URL parameter is missing.
+When the request body doesn't deserialise properly.
 
 ```json
 {
   "ok": false,
-  "error": "Missing url parameter."
+  "error": "Missing request body"
 }
 ```
 
