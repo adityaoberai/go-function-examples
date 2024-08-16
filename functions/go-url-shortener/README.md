@@ -1,35 +1,71 @@
 # Go URL Shortner
+Generate URL with short ID and redirect to the original URL when visited.
 
 ## 🧰 Usage
 
-### GET /ping
+### GET /:shortId
 
-- Returns a "Pong" message.
+Redirects to shortId's original URL.
+
+**Parameters**
+
+| Name    | Description                      | Location | Type   | Sample Value |
+| ------- | -------------------------------- | -------- | ------ | ------------ |
+| shortId | Short ID to lookup original URL. | Path     | String | `appwrite`    |
 
 **Response**
 
-Sample `200` Response:
+Sample `302` Response:
+
+Redirects to the original URL.
 
 ```text
-Pong
+Location: https://appwrite.io
 ```
 
-### GET, POST, PUT, PATCH, DELETE /
+Sample `404` Response:
 
-- Returns a "Learn More" JSON response.
+When no URL is found for the short ID.
+
+```text
+URL not found
+```
+
+### POST /
+
+Create a new short ID for a URL.
+
+**Parameters**
+
+| Name         | Description                                           | Location | Type               | Sample Value                                                   |
+| ------------ | ----------------------------------------------------- | -------- | ------------------ | -------------------------------------------------------------- |
+| Content-Type | Content type                                          | Header   | `application/json` |
+| longUrl      | Long URL to shorten                                   | Body     | String             | `https://mywebapp.com/pages/hugelongurl?with=query&params=123` |
+| shortId      | Short ID to use                                       | Body     | String             | `discord`                                                      |
 
 **Response**
 
 Sample `200` Response:
+
+Returns the short URL and the original URL.
 
 ```json
 {
-  "motto": "Build like a team of hundreds_",
-  "learn": "https://appwrite.io/docs",
-  "connect": "https://appwrite.io/discord",
-  "getInspired": "https://builtwith.appwrite.io"
+  "short": "https://short.app/s/discord"
 }
 ```
+
+Sample `400` Response:
+
+When the URL parameter is missing.
+
+```json
+{
+  "ok": false,
+  "error": "Missing url parameter."
+}
+```
+
 
 ## ⚙️ Configuration
 

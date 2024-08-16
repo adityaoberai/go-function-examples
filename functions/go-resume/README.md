@@ -1,34 +1,23 @@
 # Go Resume
 
+Share your resume as an HTML webpage.
+
 ## 🧰 Usage
 
-### GET /ping
+### GET /
 
-- Returns a "Pong" message.
-
-**Response**
-
-Sample `200` Response:
-
-```text
-Pong
-```
+- Returns an HTML webpage that renders in your browser
 
 ### GET, POST, PUT, PATCH, DELETE /
 
-- Returns a "Learn More" JSON response.
+- Returns a "Bad request" text message
 
 **Response**
 
-Sample `200` Response:
+Sample `400` Response:
 
-```json
-{
-  "motto": "Build like a team of hundreds_",
-  "learn": "https://appwrite.io/docs",
-  "connect": "https://appwrite.io/discord",
-  "getInspired": "https://builtwith.appwrite.io"
-}
+```
+Bad request
 ```
 
 ## ⚙️ Configuration

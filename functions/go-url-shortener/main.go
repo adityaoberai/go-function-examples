@@ -9,8 +9,8 @@ import (
 )
 
 type RequestBody struct {
-	ShortUrl string `json:"shortUrl"`
-	LongUrl  string `json:"longUrl"`
+	ShortId string `json:"shortId"`
+	LongUrl string `json:"longUrl"`
 }
 
 type ResponseBody struct {
@@ -26,8 +26,8 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 
 	databases := appwrite.NewDatabases(client)
 
-	dbId := os.Getenv("APPWRITE_DB_ID")
-	collId := os.Getenv("APPWRITE_COLL_ID")
+	dbId := "urlDatabase"
+	collId := "urlCollection"
 
 	services.InitialiseDatabase(Context, *databases, dbId, collId)
 
@@ -42,10 +42,10 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 			}, Context.Res.WithStatusCode(400))
 		}
 
-		document, err := databases.CreateDocument(
+		_, err = databases.CreateDocument(
 			dbId,
 			collId,
-			requestBody.ShortUrl,
+			requestBody.ShortId,
 			map[string]interface{}{
 				"longUrl": requestBody.LongUrl,
 			},
@@ -60,8 +60,9 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 		}
 
 		return Context.Res.Json(map[string]interface{}{
-			"ok":       true,
-			"response": document,
+			"ok":      true,
+			"shortId": requestBody.ShortId,
+			"longUrl": requestBody.LongUrl,
 		}, Context.Res.WithStatusCode(200))
 	}
 
@@ -71,19 +72,19 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 			return Context.Res.Text("Welcome to the URL shortener service\n\nAdd a short URL to the path to redirect to the long URL\n", Context.Res.WithStatusCode(200))
 		}
 
-		shortUrl := path[1:]
+		shortId := path[1:]
 
-		document, err := databases.GetDocument(dbId, collId, shortUrl)
+		document, err := databases.GetDocument(dbId, collId, shortId)
 
 		if err != nil {
 			Context.Error(err)
-			return Context.Res.Text("URL not found", Context.Res.WithStatusCode(400))
+			return Context.Res.Text("URL not found", Context.Res.WithStatusCode(404))
 		}
 
 		var responseBody ResponseBody
 		document.Decode(&responseBody)
 
-		return Context.Res.Redirect(responseBody.LongUrl, Context.Res.WithStatusCode(301))
+		return Context.Res.Redirect(responseBody.LongUrl, Context.Res.WithStatusCode(302))
 	}
 	return Context.Res.Empty()
 }

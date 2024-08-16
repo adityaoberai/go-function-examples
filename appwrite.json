@@ -41,7 +41,16 @@
                 "any"
             ],
             "events": [],
-            "scopes": [],
+            "scopes": [
+                "databases.read",
+                "databases.write",
+                "collections.read",
+                "collections.write",
+                "attributes.read",
+                "attributes.write",
+                "documents.read",
+                "documents.write"
+            ],
             "schedule": "",
             "timeout": 15,
             "enabled": true,
