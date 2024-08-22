@@ -1,10 +1,10 @@
 {
-    "projectId": "668fae4d726fee988ff6",
+    "projectId": "aditya-test",
     "functions": [
         {
             "$id": "go-gpt",
             "name": "Go GPT",
-            "runtime": "go-1.22",
+            "runtime": "go-1.23",
             "execute": [
                 "any"
             ],
@@ -20,7 +20,7 @@
         {
             "$id": "go-resume",
             "name": "Go Resume",
-            "runtime": "go-1.22",
+            "runtime": "go-1.23",
             "execute": [
                 "any"
             ],
@@ -36,7 +36,7 @@
         {
             "$id": "go-url-shortener",
             "name": "Go URL Shortener",
-            "runtime": "go-1.22",
+            "runtime": "go-1.23",
             "execute": [
                 "any"
             ],
